@@ -1,5 +1,22 @@
+try:
+    import mysql.connector as sq
+    p=sq.connect(host="localhost",user="root",password="",database="library")
+    if p.is_connected()==False:
+        print("Error..")
+    else:
+        myc=p.cursor()
+except:
+    print("ERROR")
 def Add_book():
-    print("YES")
+    Bid=int(input("Enter book id:"))
+    book=input("Enter book name:")
+    au=input("Enter Author name:")
+    p=float(input("Enter price:"))
+    copies=int(input("Enter number of copies:"))
+    qr="INSERT INTO book VALUES({},'{}','{}',{},{},{})".format(Bid,book,au,p,copies,copies)
+    myc.execute(qr)
+    p.commit()
+    p.close()
 while True:
     print("="*80)
     print("\t\t\t-------LIBRARY MANAGEMENT-------")
