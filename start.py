@@ -21,7 +21,16 @@ def Edit_book():
     Id=int(input("Enter book id:"))
     qry="SELECT* FROM book WHERE Bookid={}".format(Id)
     myc.execute(qry)
-    
+    R=myc.fetchone()
+    if R:
+        npr=float(input("Enter new price of book:"))
+        q="UPDATE book SET Price={} WHERE Bookid={}".format(npr,Id)
+        myc.execute(q)
+        p.commit()
+        print("The price was edited successfully")
+    else:
+        print("You have entered wrong book id")
+        
 while True:
     print("="*80)
     print("\t\t\t-------LIBRARY MANAGEMENT-------")
