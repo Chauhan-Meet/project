@@ -11,12 +11,17 @@ def Add_book():
     Bid=int(input("Enter book id:"))
     book=input("Enter book name:")
     au=input("Enter Author name:")
-    p=float(input("Enter price:"))
+    pr=float(input("Enter price:"))
     copies=int(input("Enter number of copies:"))
-    qr="INSERT INTO book VALUES({},'{}','{}',{},{},{})".format(Bid,book,au,p,copies,copies)
+    qr="INSERT INTO book VALUES({},'{}','{}',{},{},{})".format(Bid,book,au,pr,copies,copies)
     myc.execute(qr)
     p.commit()
-    p.close()
+    print("Book was added successfully")
+def Edit_book():
+    Id=int(input("Enter book id:"))
+    qry="SELECT* FROM book WHERE Bookid={}".format(Id)
+    myc.execute(qry)
+    
 while True:
     print("="*80)
     print("\t\t\t-------LIBRARY MANAGEMENT-------")
@@ -32,7 +37,7 @@ while True:
             if ch==1:
                 Add_book()
             elif ch==2:
-                print("2")
+                Edit_book()
             elif ch==3:
                 print("3")
             elif ch==4:
@@ -82,4 +87,5 @@ while True:
                 break
     elif a==5:
         break
+    
   
