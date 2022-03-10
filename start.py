@@ -1,3 +1,4 @@
+from tabulate import tabulate
 try:
     import mysql.connector as sq
     p=sq.connect(host="localhost",user="root",password="",database="library")
@@ -30,7 +31,52 @@ def Edit_book():
         print("The price was edited successfully")
     else:
         print("You have entered wrong book id")
-        
+def Delete_book():
+    Id=int(input("Enter book id:"))
+    qry="SELECT* FROM book WHERE Bookid={}".format(Id)
+    myc.execute(qry)
+    R=myc.fetchone()
+    if R:
+        q="DELETE FROM book WHERE Bookid={}".format(Id)
+        myc.execute(q)
+        p.commit()
+        print("The book was deleted successfully")
+    else:
+        print("You have entered wrong book id")
+def Search_book():
+    Id=int(input("Enter book id:"))
+    qry="SELECT* FROM book WHERE Bookid={}".format(Id)
+    myc.execute(qry)
+    R=myc.fetchone()
+    if R:
+        headers=['Bookid','Bookname','Author','Price','Copies','RemainingCopies']
+        print(tabulate([R], headers, tablefmt='psql'))
+    else:
+        print("You have entered wrong book id")
+def Add_member():
+    Mid=int(input("Enter member id:"))
+    name=input("Enter member name:")
+    add=input("Enter member's address:")
+    contact=int(input("Enter phone number:"))
+    qry="INSERT INTO member VALUES({},'{}','{}',{})".format(Mid,name,add,contact)
+    myc.execute(qry)
+    p.commit()
+    print("Member was added successfully")
+def Edit_member():
+    Id=int(input("Enter member id:"))
+    qry="SELECT* FROM member WHERE Memberid={}".format(Id)
+    myc.execute(qry)
+    R=myc.fetchone()
+    if R:
+        newadd=input("Enter new address of member:"))
+        newno=int(input("Enter new phone number:"))
+        q="UPDATE book SET Price={} WHERE Bookid={}".format(npr,Id)
+        myc.execute(q)
+        p.commit()
+        print("The price was edited successfully")
+    else:
+        print("You have entered wrong member id")  
+
 while True:
     print("="*80)
     print("\t\t\t-------LIBRARY MANAGEMENT-------")
@@ -48,9 +94,9 @@ while True:
             elif ch==2:
                 Edit_book()
             elif ch==3:
-                print("3")
+                Delete_book()
             elif ch==4:
-                print("4")
+                Search_book()
             elif ch==5:
                 break
     elif a==2:
@@ -59,7 +105,7 @@ while True:
     .\n\t\t\t\t3.Delete a member.\n\t\t\t\t4.Search for a member.\n\t\t\t\t5.Back to main menu")
             c=int(input())
             if c==1:
-                print("1")
+                Add_member()
             elif c==2:
                 print("2")
             elif c==3:
