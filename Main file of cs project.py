@@ -1,4 +1,8 @@
-from tabulate import tabulate
+try:
+    from tabulate import tabulate
+except:
+    print("Install 'tabulate' module using command = pip install tabulate in command prompt")
+    exit()
 try:
     import mysql.connector as sq
     p=sq.connect(host="localhost",user="root",password="",database="library")
